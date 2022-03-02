@@ -1,1 +1,128 @@
-<p>login works!</p>
+<div nz-col nzSpan="24" style='text-align: center'>&nbsp;</div>
+<div nz-col nzSpan="24" style='text-align: center'>&nbsp;</div>
+<div nz-row class="container p-3 my-3 border">
+    <div nz-col nzSpan="24" style='text-align: center'>
+   
+    <img src='assets/img/Captain_Milk.jpg' style='width:40%'>
+    </div>
+    <div nz-col nzSpan="24" style='text-align: center'>&nbsp;
+    </div>
+  
+    <div nz-col nzSpan="24" style='text-align: center'>
+   
+      <button nz-button nzType="primary" (click)="signUpOpen()"><b>Sign Up</b></button> &nbsp; &nbsp; 
+      <button nz-button nzType="primary" (click)="loginOpen()"><b>Login</b></button>
+      </div>
+    
+  </div>
+  
+
+  <nz-modal [nzVisible]="signUpVisible" [nzContent]="singUpContent" [nzFooter]="null" (nzOnCancel)="signUpVisible = false">
+    <ng-template #singUpContent>
+  
+      <h3> Sign Up </h3>
+      <div nz-row> &nbsp; </div>
+    <ng-container *ngIf="!otpVerify">
+      <div nz-row class="container">
+        <div nz-col nzSpan="12" style='text-align: left'>Name</div>
+        <div nz-col nzSpan="12" style='text-align: left'>
+          <input type="text" nz-input placeholder="Enter Name" style='width:100%' [(ngModel)]='name' />
+        </div>
+      </div>
+
+      <div nz-row> &nbsp; </div>
+
+      <div nz-row class="container">
+        <div nz-col nzSpan="12" style='text-align: left'>EMail Id.</div>
+        <div nz-col nzSpan="12" style='text-align: left'>
+          <input type="text" nz-input placeholder="Enter Email Id." style='width:100%' [(ngModel)]='email' />
+        </div>
+      </div>
+      <div nz-row> &nbsp; </div>
+
+      <div nz-row class="container">
+        <div nz-col nzSpan="12" style='text-align: left'>Mobile Number</div>
+        <div nz-col nzSpan="12" style='text-align: left'>
+          <input type="text" nz-input placeholder="Enter Mobile" style='width:100%' [(ngModel)]='mobile' />
+        </div>
+      </div>
+  
+      <div nz-row> &nbsp; </div>
+      <div nz-row class="container">
+        <div nz-col nzSpan="24" style='text-align: right'>
+          
+          <button nz-button nzType="primary" (click)="sendOTP()" [disabled]="sendingOTP"  [nzLoading]="sendingOTP"  ><b>Send OTP</b></button>
+        </div>
+      </div>
+      </ng-container>
+
+      <ng-container *ngIf="otpVerify">
+
+        <h5 style='color:green'>  <i class="fas fa-check"></i> OTP is Sent to Your Mobile. </h5>
+ 
+        <div nz-row> &nbsp; </div>
+
+        <div nz-row class="container">
+            <div nz-col nzSpan="12" style='text-align: left'>Enter OTP</div>
+            <div nz-col nzSpan="12" style='text-align: left'>
+              <input type="text" nz-input placeholder="Enter OTP" style='width:100%' [(ngModel)]='otp' />
+            </div>
+          </div>
+      
+          <div nz-row> &nbsp; </div>
+          <div nz-row class="container">
+            <div nz-col nzSpan="24" style='text-align: right'>
+              <button nz-button nzType="primary" (click)="resendOTP()" [disabled]="sendingOTP" ><b>Re-Send OTP</b></button> &nbsp; &nbsp;
+              <button nz-button nzType="primary" (click)="verifyOTP()" [nzLoading]="sendingOTP" [disabled]="sendingOTP"><b>Verify OTP</b></button>
+            </div>
+          </div>
+
+        </ng-container>
+
+    </ng-template>
+  </nz-modal>
+
+
+
+  <nz-modal [nzVisible]="successVisible" [nzContent]="successContent" [nzFooter]="null" (nzOnCancel)="successVisible = false">
+    <ng-template #successContent>
+      <nz-result
+      nzStatus="success"
+      nzTitle="Your Registration is Successful!"
+      nzSubTitle="Login with Mobile Number and Avail Services"
+    >
+      <div nz-result-extra>
+        <button nz-button nzType="primary">Login</button>
+        <button nz-button (click)='successVisible=false' >Home</button>
+      </div>
+    </nz-result>
+ 
+
+    </ng-template>
+  </nz-modal>
+
+
+
+  <nz-modal [nzVisible]="loginVisible" [nzContent]="loginContent" [nzFooter]="null" (nzOnCancel)="loginVisible = false">
+    <ng-template #loginContent>
+
+      <h3> Login </h3>
+      <div nz-row> &nbsp; </div>
+      <div nz-row class="container">
+        <div nz-col nzSpan="12" style='text-align: left'>Mobile Number</div>
+        <div nz-col nzSpan="12" style='text-align: left'>
+          <input type="text" nz-input placeholder="Enter Mobile" style='width:100%' [(ngModel)]='mobile' />
+        </div>
+      </div>
+  
+      <div nz-row> &nbsp; </div>
+      <div nz-row class="container">
+        <div nz-col nzSpan="24" style='text-align: right'>
+          
+          <button nz-button nzType="primary" (click)="sendLoginOTP()" [disabled]="sendingOTP"  [nzLoading]="sendingOTP"  ><b>Send OTP</b></button>
+        </div>
+      </div>
+
+      </ng-template>
+      </nz-modal>
+  
