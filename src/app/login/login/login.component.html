@@ -108,6 +108,8 @@
 
       <h3> Login </h3>
       <div nz-row> &nbsp; </div>
+
+      <ng-container *ngIf="!otpVerify">
       <div nz-row class="container">
         <div nz-col nzSpan="12" style='text-align: left'>Mobile Number</div>
         <div nz-col nzSpan="12" style='text-align: left'>
@@ -122,6 +124,30 @@
           <button nz-button nzType="primary" (click)="sendLoginOTP()" [disabled]="sendingOTP"  [nzLoading]="sendingOTP"  ><b>Send OTP</b></button>
         </div>
       </div>
+    </ng-container>
+
+    <ng-container *ngIf="otpVerify">
+
+      <h5 style='color:green'>  <i class="fas fa-check"></i> OTP is Sent to Your Mobile. </h5>
+
+      <div nz-row> &nbsp; </div>
+
+      <div nz-row class="container">
+          <div nz-col nzSpan="12" style='text-align: left'>Enter OTP</div>
+          <div nz-col nzSpan="12" style='text-align: left'>
+            <input type="text" nz-input placeholder="Enter OTP" style='width:100%' [(ngModel)]='otp' />
+          </div>
+        </div>
+    
+        <div nz-row> &nbsp; </div>
+        <div nz-row class="container">
+          <div nz-col nzSpan="24" style='text-align: right'>
+            <button nz-button nzType="primary" (click)="resendOTP()" [disabled]="sendingOTP" ><b>Re-Send OTP</b></button> &nbsp; &nbsp;
+            <button nz-button nzType="primary" (click)="verifyLoginOTP()" [nzLoading]="sendingOTP" [disabled]="sendingOTP"><b>Verify OTP</b></button>
+          </div>
+        </div>
+
+      </ng-container>
 
       </ng-template>
       </nz-modal>

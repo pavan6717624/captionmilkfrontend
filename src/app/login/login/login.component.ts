@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private msg: NzMessageService,private loginService: LoginService) { }
+  constructor(private router: Router,private msg: NzMessageService,private loginService: LoginService) { }
   signUpVisible=false;
   loginVisible=false;
   mobile: string = '';
@@ -38,6 +39,20 @@ export class LoginComponent implements OnInit {
     this.sendingOTP=false;
     this.otpVerify=false;
     this.successVisible=true;
+    this.mobile='';
+    this.name='';
+    this.otp='';
+    this.email='';
+
+  }
+
+
+  loginClose()
+  {
+    this.signUpVisible=false;
+    this.loginVisible=false;
+    this.sendingOTP=false;
+    this.otpVerify=false;
     this.mobile='';
     this.name='';
     this.otp='';
@@ -86,6 +101,29 @@ export class LoginComponent implements OnInit {
       );
 
   }
+
+  verifyLoginOTP()
+  {
+    
+    if(this.otp.trim().length == 0)
+    {
+       this.msg.error("Please provide Valid OTP");
+       return;
+    }
+    this.sendingOTP=true;
+    var formData = new FormData();
+    formData.set("mobile",this.mobile);
+    formData.set("otp",this.otp);
+  
+      this.loginService.verifyLoginOTP(formData).subscribe(
+  
+        (res : any) => { this.sendingOTP=false; console.log(res); if(res){ this.msg.success(res.message); this.router.navigate(['user']); this.loginClose(); } else this.msg.error(res.message);},
+        (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err);}
+  
+      );
+
+  }
+
 
   sendingOTP=false;
   otpVerify=false;
@@ -166,7 +204,7 @@ sendLoginOTP()
  
     this.loginService.sendLoginOTP(formData).subscribe(
 
-      (res : any) => { this.sendingOTP=false; console.log(res); if(res.status){ this.msg.success("Login Successful!")} else this.msg.error(res.message);},
+      (res : any) => { this.sendingOTP=false; console.log(res); if(res.status){ this.otpVerify=true;} else this.msg.error(res.message);},
       (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err);}
 
     );
