@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
+  getLoginDetails() {
+    return this.http.get('http://localhost:8084/getLoginDetails')
+  }
   verifyLoginOTP(formData: FormData) {
     return this.http.post('http://localhost:8084/verifyLoginOTP',formData);
   }

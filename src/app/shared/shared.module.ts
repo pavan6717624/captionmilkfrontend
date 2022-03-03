@@ -29,7 +29,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import {FormsModule} from '@angular/forms';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
-
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 @NgModule({
   declarations: [],
   imports: [
@@ -42,7 +43,7 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
     NzIconModule,
     NzSelectModule,
     NzCardModule,
-
+    NzBreadCrumbModule,
     NzMessageModule,
     NzAffixModule,
     NzResultModule,
@@ -58,7 +59,7 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
     NzDescriptionsModule,
     NzTableModule,
     NzDatePickerModule,
-
+    NzLayoutModule,
     NzImageModule,
     NzNotificationModule,
     NzTimePickerModule,

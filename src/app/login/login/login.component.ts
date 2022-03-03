@@ -10,204 +10,199 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router,private msg: NzMessageService,private loginService: LoginService) { }
-  signUpVisible=false;
-  loginVisible=false;
+  constructor(private router: Router, private msg: NzMessageService, private loginService: LoginService) { }
+  signUpVisible = false;
+  loginVisible = false;
   mobile: string = '';
   name: string = '';
   email: string = '';
-  otp: string =  '';
+  otp: string = '';
   ngOnInit(): void {
   }
-  signUpOpen()
-  {
-    this.signUpVisible=true;
-    this.loginVisible=false;
+  signUpOpen() {
+    this.signUpVisible = true;
+    this.loginVisible = false;
 
   }
 
-  loginOpen()
-  {
-    this.signUpVisible=false;
-    this.loginVisible=true;
+  loginOpen() {
+    this.signUpVisible = false;
+    this.loginVisible = true;
   }
 
-  signUpClose()
-  {
-    this.signUpVisible=false;
-    this.loginVisible=false;
-    this.sendingOTP=false;
-    this.otpVerify=false;
-    this.successVisible=true;
-    this.mobile='';
-    this.name='';
-    this.otp='';
-    this.email='';
+  signUpClose() {
+    this.signUpVisible = false;
+    this.loginVisible = false;
+    this.sendingOTP = false;
+    this.otpVerify = false;
+    this.successVisible = true;
+    this.mobile = '';
+    this.name = '';
+    this.otp = '';
+    this.email = '';
 
   }
 
 
-  loginClose()
-  {
-    this.signUpVisible=false;
-    this.loginVisible=false;
-    this.sendingOTP=false;
-    this.otpVerify=false;
-    this.mobile='';
-    this.name='';
-    this.otp='';
-    this.email='';
+  loginClose() {
+    this.signUpVisible = false;
+    this.loginVisible = false;
+    this.sendingOTP = false;
+    this.otpVerify = false;
+    this.mobile = '';
+    this.name = '';
+    this.otp = '';
+    this.email = '';
 
   }
 
-  resentOTP=false;
+  resentOTP = false;
 
-  resendOTP()
-  {
+  resendOTP() {
     // this.sendingOTP = true;
 
     // var formData = new FormData();
     // formData.set("mobile",this.mobile+"")
-  
+
     //   this.loginService.resendOTP(formData).subscribe(
-  
+
     //     (res) => { this.sendingOTP=false; console.log(res); if(res){ this.resentOTP=true;} else alert('error'); },
     //     (err) => { this.sendingOTP = false; alert('error occured'); console.log(err);}
-  
+
     //   );
 
   }
 
-  successVisible= false;
+  successVisible = false;
 
-  verifyOTP()
-  {
-    
-    if(this.otp.trim().length == 0)
-    {
-       this.msg.error("Please provide Valid OTP");
-       return;
+  verifyOTP() {
+
+    if (this.otp.trim().length == 0) {
+      this.msg.error("Please provide Valid OTP");
+      return;
     }
-    this.sendingOTP=true;
+    this.sendingOTP = true;
     var formData = new FormData();
-    formData.set("mobile",this.mobile);
-    formData.set("otp",this.otp);
-  
-      this.loginService.verifyOTP(formData).subscribe(
-  
-        (res : any) => { this.sendingOTP=false; console.log(res); if(res){ this.msg.success(res.message); this.signUpClose();  } else this.msg.error(res.message);},
-        (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err);}
-  
-      );
+    formData.set("mobile", this.mobile);
+    formData.set("otp", this.otp);
+
+    this.loginService.verifyOTP(formData).subscribe(
+
+      (res: any) => { this.sendingOTP = false; console.log(res); if (res) { this.msg.success(res.message); this.signUpClose(); } else this.msg.error(res.message); },
+      (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err); }
+
+    );
 
   }
+  
 
-  verifyLoginOTP()
-  {
-    
-    if(this.otp.trim().length == 0)
-    {
-       this.msg.error("Please provide Valid OTP");
-       return;
+  verifyLoginOTP() {
+
+    if (this.otp.trim().length == 0) {
+      this.msg.error("Please provide Valid OTP");
+      return;
     }
-    this.sendingOTP=true;
+    this.sendingOTP = true;
     var formData = new FormData();
-    formData.set("mobile",this.mobile);
-    formData.set("otp",this.otp);
-  
-      this.loginService.verifyLoginOTP(formData).subscribe(
-  
-        (res : any) => { this.sendingOTP=false; console.log(res); if(res){ this.msg.success(res.message); this.router.navigate(['user']); this.loginClose(); } else this.msg.error(res.message);},
-        (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err);}
-  
-      );
+    formData.set("mobile", this.mobile);
+    formData.set("otp", this.otp);
+
+    this.loginService.verifyLoginOTP(formData).subscribe(
+
+      (res: any) => {
+        this.sendingOTP = false;
+        console.log(res);
+        if (res) {
+          //this.msg.success(res.message);
+
+          let tokenStr= 'Bearer '+res.jwt;
+          localStorage.setItem('token', tokenStr);
+
+          this.router.navigate(['user']);
+          this.loginClose();
+        }
+        else
+          this.msg.error(res.message);
+      },
+      (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err); }
+
+    );
 
   }
 
 
-  sendingOTP=false;
-  otpVerify=false;
+  sendingOTP = false;
+  otpVerify = false;
 
-  sendOTP()
-{
+  sendOTP() {
 
-  if(this.name.trim().length == 0)
- {
-    this.msg.error("Please provide Valid Name");
-    return;
- }
-  else if(this.email.trim().length == 0)
-  {
-    this.msg.error("Please provide Valid EMail Address");
-    return;
-  }
-  else if(this.mobile.trim().length == 0)
-  {
-    this.msg.error("Please provide Valid Mobile Number");
-    return;
-  }
-  if(!this.checkMobile())
-  {
-    this.msg.error("Please provide Valid Mobile Number");
-    return;
-  }
-  if(!this.checkEmail())
-  {
-    this.msg.error("Please provide Valid EMail Address");
-    return;
-  }
-  this.sendingOTP = true;
+    if (this.name.trim().length == 0) {
+      this.msg.error("Please provide Valid Name");
+      return;
+    }
+    else if (this.email.trim().length == 0) {
+      this.msg.error("Please provide Valid EMail Address");
+      return;
+    }
+    else if (this.mobile.trim().length == 0) {
+      this.msg.error("Please provide Valid Mobile Number");
+      return;
+    }
+    if (!this.checkMobile()) {
+      this.msg.error("Please provide Valid Mobile Number");
+      return;
+    }
+    if (!this.checkEmail()) {
+      this.msg.error("Please provide Valid EMail Address");
+      return;
+    }
+    this.sendingOTP = true;
 
-  var formData = new FormData();
-  formData.set("mobile",this.mobile+"");
-  formData.set("email",this.email+"");
-  formData.set("name",this.name);
+    var formData = new FormData();
+    formData.set("mobile", this.mobile + "");
+    formData.set("email", this.email + "");
+    formData.set("name", this.name);
     this.loginService.sendOTP(formData).subscribe(
 
-      (res : any) => { this.sendingOTP=false; console.log(res); if(res.status){ this.otpVerify=true;} else this.msg.error(res.message);},
-      (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err);}
+      (res: any) => { this.sendingOTP = false; console.log(res); if (res.status) { this.otpVerify = true; } else this.msg.error(res.message); },
+      (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err); }
 
     );
-}
-
-checkMobile()
-{
-  let isnum = /^\d+$/.test(this.mobile);
-    return isnum && this.mobile.length == 10; 
-}
-checkEmail()
-{
- if (this.email.trim().indexOf('@')==-1 || this.email.trim().indexOf('@') != this.email.trim().lastIndexOf('@') || this.email.trim().lastIndexOf('@') > this.email.trim().lastIndexOf('.')  || this.email.trim().endsWith('.') || this.email.trim().startsWith('@')  || this.email.trim().endsWith('@') || this.email.trim().startsWith('.') || this.email.trim().indexOf('.')==-1) 
- return false;
- else
- return true;
-}
-
-sendLoginOTP()
-{
- if(this.mobile.trim().length == 0)
-  {
-    this.msg.error("Please provide Valid Mobile Number");
-    return;
-  }
-  if(!this.checkMobile())
-  {
-    this.msg.error("Please provide Valid Mobile Number");
-    return;
   }
 
+  checkMobile() {
+    let isnum = /^\d+$/.test(this.mobile);
+    return isnum && this.mobile.length == 10;
+  }
+  checkEmail() {
+    if (this.email.trim().indexOf('@') == -1 || this.email.trim().indexOf('@') != this.email.trim().lastIndexOf('@') || this.email.trim().lastIndexOf('@') > this.email.trim().lastIndexOf('.') || this.email.trim().endsWith('.') || this.email.trim().startsWith('@') || this.email.trim().endsWith('@') || this.email.trim().startsWith('.') || this.email.trim().indexOf('.') == -1)
+      return false;
+    else
+      return true;
+  }
 
-  this.sendingOTP = true;
+  sendLoginOTP() {
+    if (this.mobile.trim().length == 0) {
+      this.msg.error("Please provide Valid Mobile Number");
+      return;
+    }
+    if (!this.checkMobile()) {
+      this.msg.error("Please provide Valid Mobile Number");
+      return;
+    }
 
-  var formData = new FormData();
-  formData.set("mobile",this.mobile+"");
- 
+
+    this.sendingOTP = true;
+
+    var formData = new FormData();
+    formData.set("mobile", this.mobile + "");
+
     this.loginService.sendLoginOTP(formData).subscribe(
 
-      (res : any) => { this.sendingOTP=false; console.log(res); if(res.status){ this.otpVerify=true;} else this.msg.error(res.message);},
-      (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err);}
+      (res: any) => { this.sendingOTP = false; console.log(res); if (res.status) { this.otpVerify = true; } else this.msg.error(res.message); },
+      (err) => { this.sendingOTP = false; this.msg.error("Error Occured at Server. Please Try Again."); console.log(err); }
 
     );
-}
+  }
 
 }
