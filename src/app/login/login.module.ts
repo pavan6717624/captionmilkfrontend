@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { SuccessComponent } from './success/success.component';
 import { UserComponent } from './user/user.component';
-
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -16,7 +16,8 @@ import { UserComponent } from './user/user.component';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    SharedModule
+    SharedModule,
+    NzLayoutModule
   ]
 })
 export class LoginModule { }

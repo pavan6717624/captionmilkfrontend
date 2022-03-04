@@ -1,0 +1,114 @@
+<div nz-row>
+    <div nz-col nzSpan="24" style='text-align: left'>
+
+        <button nz-button nzType="primary" (click)='showAddUserVisible=true'>+ Add</button> &nbsp;&nbsp;
+        <ng-container *ngIf="!loading && usersList && usersList.length > 0">
+            <button nz-button nzType="primary" (click)='download()' [nzLoading]='downloading'>
+                Download
+            </button>
+        </ng-container>
+
+
+    </div>
+</div>
+
+<div nz-row> &nbsp; </div>
+
+
+
+
+
+<div style='overflow:auto;width:100%;height:100%'>
+    <nz-table #basicTable nzShowPagination=true nzSize='middle' nzBordered [nzData]="usersList" [nzLoading]="loading">
+        <thead>
+            <tr>
+
+                <th> # </th>
+
+                <th> Name </th>
+                <th> Contact </th>
+                <th> Address </th>
+                <th> Regular Amount </th>
+                <th> Type </th>
+
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let data of basicTable.data; index as i">
+
+                <td>{{ (i+1) }}</td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.contact }}</td>
+                <td>{{ data.address }}</td>
+                <td>{{ data.regularAmount }}</td>
+                <td>{{ data.type }}</td>
+
+
+
+
+            </tr>
+
+
+        </tbody>
+    </nz-table>
+</div>
+
+
+
+
+<nz-modal [nzVisible]="showAddUserVisible" [nzContent]="showAddUserContent" [nzFooter]="null"
+    (nzOnCancel)="showAddUserVisible = false">
+    <ng-template #showAddUserContent>
+
+        <h3> Add {{userType}} </h3>
+        <div nz-row> &nbsp; </div>
+
+        <div nz-row class="container">
+            <div nz-col nzSpan="12" style='text-align: left'>Name</div>
+            <div nz-col nzSpan="12" style='text-align: left'>
+                <input type="text" nz-input placeholder="Enter Name" style='width:100%' [(ngModel)]='name' />
+            </div>
+        </div>
+
+
+        <div nz-row> &nbsp; </div>
+
+        <div nz-row class="container">
+            <div nz-col nzSpan="12" style='text-align: left'>Mobile Number</div>
+            <div nz-col nzSpan="12" style='text-align: left'>
+                <input type="text" nz-input placeholder="Enter Mobile" style='width:100%' [(ngModel)]='mobile' />
+            </div>
+        </div>
+
+        <div nz-row> &nbsp; </div>
+
+        <div nz-row class="container">
+            <div nz-col nzSpan="12" style='text-align: left'>Regular Amount</div>
+            <div nz-col nzSpan="12" style='text-align: left'>
+                <input type="text" nz-input placeholder="Enter Amount" style='width:100%' [(ngModel)]='amount' />
+            </div>
+        </div>
+
+
+        <div nz-row> &nbsp; </div>
+
+        <div nz-row class="container">
+            <div nz-col nzSpan="12" style='text-align: left'>Address </div>
+            <div nz-col nzSpan="12" style='text-align: left'>
+                <textarea rows="4" nz-input placeholder="Enter Address" style='width:100%' [(ngModel)]='address'></textarea>
+            </div>
+
+
+            <div nz-row> &nbsp; </div>
+      <div nz-row class="container">
+        <div nz-col nzSpan="24" style='text-align: right'>
+          
+          <button nz-button nzType="primary" (click)='addUser()' [disabled]="loading"  [nzLoading]="loading"><b>ADD</b></button>
+        </div>
+      </div>
+        </div>
+    </ng-template>
+</nz-modal>

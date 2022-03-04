@@ -42,17 +42,23 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['login']);
           return;
         }
-        else
-        {
-          //this.msg.success("Successful Login as User");
-        }
-       
+              
       },
       (err) => {
         this.loading = false; this.msg.create('error', 'Session Expired. Please Login...');
         this.router.navigate(['login']);
       }
     );
+  }
+
+  toUser(id:number)
+  {
+    if(id==0)
+    this.router.navigate(['customer/usercaption']);	
+    else if(id==1)
+    this.router.navigate(['customer/usercustomer']);	
+    else if(id==2)
+    this.router.navigate(['customer/reports']);	
   }
 
 }

@@ -1,0 +1,59 @@
+<nz-layout style="width:100%;height:100%;background-color: white">
+    <nz-header style="background-color: white; padding: 0 20px;">
+        <div class="logo" style="text-align:left;">
+            <div nz-row>
+                <div nz-col nzSpan="8" style='text-align: left'>
+                    <i class="fas fa-bars" (click)="open()"></i>&nbsp;
+                    <img src='assets/img/Captain_Milk.jpg' style='max-height: 50px; min-height:20px;'>
+                </div>
+                <div nz-col nzSpan="12" style='text-align: center;padding-top:15px'>
+                    <h4 id="header">Caption Milk</h4>
+                </div>
+                <div nz-col nzSpan="4" style='text-align: right;'>
+
+                    <nz-avatar nzSize="large" nzIcon="user"></nz-avatar>
+
+                </div>
+            </div>
+        </div>
+
+    </nz-header>
+    <nz-content>
+        <div>&nbsp;</div>
+        <div style='padding: 0 20px;'>
+            <router-outlet></router-outlet>
+        </div>
+    </nz-content>
+    <nz-footer style="background-color: white;text-align:center">Caption Milk</nz-footer>
+
+</nz-layout>
+
+
+
+<nz-drawer [nzClosable]="false" [nzVisible]="menuVisible" [nzPlacement]="'left'" nzTitle="Menu" (nzOnClose)="close(0)">
+    <ng-container *nzDrawerContent>
+        <ul nz-menu nzTheme="light" nzMode="inline">
+            <li nz-menu-item [nzSelected]="selectedMenu==1?true:false">
+                <i nz-icon nzType="home"> </i><span> <a style='text-decoration: none;' [routerLink]="['home']"
+                        (click)="close(1)"> Home </a></span>
+            </li>
+
+
+            <li nz-menu-item [nzSelected]="selectedMenu==2?true:false"><a style='text-decoration: none;'
+                    [routerLink]="['complimentary']" (click)="close(2)">Complimentary</a></li>
+            <li nz-menu-item [nzSelected]="selectedMenu==6?true:false"><a style='text-decoration: none;'
+                    [routerLink]="['redeemable']" (click)="close(6)">Redeemable</a></li>
+            <li nz-menu-item [nzSelected]="selectedMenu==7?true:false"><a style='text-decoration: none;'
+                    [routerLink]="['discount']" (click)="close(7)">Discount</a></li>
+            <li nz-menu-item [nzSelected]="selectedMenu==4?true:false"><a style='text-decoration: none;'
+                    [routerLink]="['daily']" (click)="close(4)">Daily Deals</a></li>
+            <li nz-menu-item [nzSelected]="selectedMenu==5?true:false"><a style='text-decoration: none;'
+                    [routerLink]="['limited']" (click)="close(5)">Limited</a></li>
+
+            <li nz-menu-item [nzSelected]="selectedMenu==3?true:false"><a style='text-decoration: none;'
+                    [routerLink]="['onetimeoffers']" (click)="close(3)">FREE / One Time Offers</a></li>
+
+
+        </ul>
+    </ng-container>
+</nz-drawer>
