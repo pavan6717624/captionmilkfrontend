@@ -82,7 +82,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { FormsModule } from '@angular/forms';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
-
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 
 const NG_ZORRO_SHARED_MODULES = [
   NzTimePickerModule,
@@ -102,6 +102,7 @@ const NG_ZORRO_SHARED_MODULES = [
   NzDividerModule,
   NzDrawerModule,
   NzDropDownModule,
+  NzCalendarModule,
   NzEmptyModule,
   NzFormModule,
   NzGridModule,
@@ -133,7 +134,7 @@ const NG_ZORRO_SHARED_MODULES = [
   NzTypographyModule,
   NzUploadModule,
   NzPopconfirmModule,
-  FormsModule
+  FormsModule,
 ];
 
 
