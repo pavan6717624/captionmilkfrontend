@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UserComponent } from './user/user.component';
 import { LayoutComponent } from './layout/layout.component';
+import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path:'reports',component: ReportsComponent},
   { path:'usercaption',component: UserComponent , data : {user : 'Caption'}, },
   { path:'usercustomer',component: UserComponent , data : {user : 'Customer'}, },
+  { path:'usercustomer',component: UserComponent , data : {user : 'Customer'}, },
+  { path:'details',component: DetailsComponent},
   ]
 },
 ];

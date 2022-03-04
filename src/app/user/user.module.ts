@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UserComponent } from './user/user.component';
 import { LayoutComponent } from './layout/layout.component';
+import { DetailsComponent } from './details/details.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { LayoutComponent } from './layout/layout.component';
     HomeComponent,
     ReportsComponent,
     UserComponent,
-    LayoutComponent
+    LayoutComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
