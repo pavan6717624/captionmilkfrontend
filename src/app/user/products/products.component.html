@@ -1,89 +1,74 @@
 <div class="row">
-    <div class="col-lg-3" style='text-align: center'>
+    <div class="col-lg-4" style='text-align: center'>
         <div class='container' nz-row style='text-align:center;'>
             <nz-card style="width:300px;" nzTitle="Category" [nzExtra]="extraTemplate">
-                <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChange(item)" *ngFor="let item of category"></p>
+                <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChangeCategory(item)"
+                    *ngFor="let item of category"></p>
 
             </nz-card>
             <ng-template #extraTemplate>
-                <button nz-button (click)="visible=true">+</button>
+                <button nz-button (click)="type='Category';visible=true">+</button>
             </ng-template>
 
         </div>
     </div>
 
-    <div class="col-lg-3" style='text-align: center'>
+    <div class="col-lg-4" style='text-align: center'>
         <div class='container' nz-row style='text-align:center;'>
-            <nz-card style="width:300px;" nzTitle="Brand" [nzExtra]="extraTemplate">
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-            </nz-card>
-            <ng-template #extraTemplate>
-                <button nz-button>+</button>
-            </ng-template>
+            <nz-card style="width:300px;" nzTitle="Brand" [nzExtra]="extraTemplate1">
+                <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChangeBrand(item)"
+                    *ngFor="let item of brand"></p>
 
+            </nz-card>
+            <ng-template #extraTemplate1>
+                <button nz-button (click)="type='Brand';visible=true">+</button>
+            </ng-template>
         </div>
 
 
     </div>
 
-    <div class="col-lg-3" style='text-align: center'>
+    <div class="col-lg-4" style='text-align: center'>
         <div class='container' nz-row style='text-align:center;'>
-            <nz-card style="width:300px;" nzTitle="Quantity" [nzExtra]="extraTemplate">
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+            <nz-card style="width:300px;" nzTitle="Quantity" [nzExtra]="extraTemplate2">
+                <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChangeQuantity(item)"
+                    *ngFor="let item of quantity"></p> 
+
             </nz-card>
-            <ng-template #extraTemplate>
-                <button nz-button (click)='visible=true'>+</button>
+            <ng-template #extraTemplate2>
+                <button nz-button (click)="type='Quantity';visible=true">+</button>
             </ng-template>
-
         </div>
-
 
     </div>
 
-    <div class="col-lg-3" style='text-align: center'>
-        <div class='container' nz-row style='text-align:center;'>
-            <nz-card style="width:300px;" nzTitle="Repeat" [nzExtra]="extraTemplate">
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
-            </nz-card>
-            <ng-template #extraTemplate>
-                <button nz-button>+</button>
-            </ng-template>
+   
 
-        </div>
-
-
-    </div>
 
 
 </div>
 
 
-<nz-modal [nzVisible]="visible" [nzContent]="content" [nzFooter]="null" (nzOnCancel)="visible = false">
+<nz-modal [nzVisible]="visible" [nzContent]="content" [nzFooter]="null" (nzOnCancel)="closeVisible()">
     <ng-template #content>
 
-        <h3> Add Category </h3>
+        <h3> Add {{type}} </h3>
         <div nz-row> &nbsp; </div>
 
         <div nz-row class="container">
             <div nz-col nzSpan="12" style='text-align: left'>Name</div>
             <div nz-col nzSpan="12" style='text-align: left'>
-              <input type="text" nz-input placeholder="Enter Mobile" style='width:100%' [(ngModel)]='name' />
+                <input type="text" nz-input placeholder="Enter {{type}}" style='width:100%' [(ngModel)]='name' />
             </div>
-          </div>
-      
-          <div nz-row> &nbsp; </div>
-          <div nz-row class="container">
+        </div>
+
+        <div nz-row> &nbsp; </div>
+        <div nz-row class="container">
             <div nz-col nzSpan="24" style='text-align: right'>
-              
-              <button nz-button nzType="primary"  (click)="addCategory()"><b>ADD</b></button>
+
+                <button nz-button nzType="primary" (click)="add()"><b>ADD</b></button>
             </div>
-          </div>
+        </div>
 
     </ng-template>
 </nz-modal>
