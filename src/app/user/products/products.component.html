@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-lg-3" style='text-align: center'>
+        <div class='container' nz-row style='text-align:center;'>
+            <nz-card style="width:300px;" nzTitle="Category" [nzExtra]="extraTemplate">
+                <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChange(item)" *ngFor="let item of category"></p>
+
+            </nz-card>
+            <ng-template #extraTemplate>
+                <button nz-button (click)="visible=true">+</button>
+            </ng-template>
+
+        </div>
+    </div>
+
+    <div class="col-lg-3" style='text-align: center'>
+        <div class='container' nz-row style='text-align:center;'>
+            <nz-card style="width:300px;" nzTitle="Brand" [nzExtra]="extraTemplate">
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+            </nz-card>
+            <ng-template #extraTemplate>
+                <button nz-button>+</button>
+            </ng-template>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-lg-3" style='text-align: center'>
+        <div class='container' nz-row style='text-align:center;'>
+            <nz-card style="width:300px;" nzTitle="Quantity" [nzExtra]="extraTemplate">
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+            </nz-card>
+            <ng-template #extraTemplate>
+                <button nz-button (click)='visible=true'>+</button>
+            </ng-template>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-lg-3" style='text-align: center'>
+        <div class='container' nz-row style='text-align:center;'>
+            <nz-card style="width:300px;" nzTitle="Repeat" [nzExtra]="extraTemplate">
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+                <p nz-typography nzEditable [(nzContent)]="editStr"></p>
+            </nz-card>
+            <ng-template #extraTemplate>
+                <button nz-button>+</button>
+            </ng-template>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<nz-modal [nzVisible]="visible" [nzContent]="content" [nzFooter]="null" (nzOnCancel)="visible = false">
+    <ng-template #content>
+
+        <h3> Add Category </h3>
+        <div nz-row> &nbsp; </div>
+
+        <div nz-row class="container">
+            <div nz-col nzSpan="12" style='text-align: left'>Name</div>
+            <div nz-col nzSpan="12" style='text-align: left'>
+              <input type="text" nz-input placeholder="Enter Mobile" style='width:100%' [(ngModel)]='name' />
+            </div>
+          </div>
+      
+          <div nz-row> &nbsp; </div>
+          <div nz-row class="container">
+            <div nz-col nzSpan="24" style='text-align: right'>
+              
+              <button nz-button nzType="primary"  (click)="addCategory()"><b>ADD</b></button>
+            </div>
+          </div>
+
+    </ng-template>
+</nz-modal>

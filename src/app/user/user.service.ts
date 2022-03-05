@@ -5,6 +5,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
+  addCategory(category: import("./products/products.component").Category) {
+    return this.http.post('http://localhost:8084/addCategory',category)
+  }
+  getCategories() {
+    return this.http.get('http://localhost:8084/getCategories');
+  }
   addUser(formData: FormData) {
     return this.http.post('http://localhost:8084/addUser',formData)
   }

@@ -5,6 +5,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { UserComponent } from './user/user.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DetailsComponent } from './details/details.component';
+import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path:'usercustomer',component: UserComponent , data : {user : 'Customer'}, },
   { path:'usercustomer',component: UserComponent , data : {user : 'Customer'}, },
   { path:'details',component: DetailsComponent},
+   { path:'products',component: ProductsComponent},
   ]
 },
 ];

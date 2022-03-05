@@ -7,6 +7,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { UserComponent } from './user/user.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DetailsComponent } from './details/details.component';
+import { ProductsComponent } from './products/products.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DetailsComponent } from './details/details.component';
     ReportsComponent,
     UserComponent,
     LayoutComponent,
-    DetailsComponent
+    DetailsComponent,
+    ProductsComponent
   ],
   imports: [
     CommonModule,
