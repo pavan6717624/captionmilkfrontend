@@ -13,6 +13,8 @@ export class LayoutComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private router: Router) {
 
+ 
+
     if(router.url.includes("/home"))
     {
       this.selectedMenu = 1;
@@ -47,7 +49,21 @@ export class LayoutComponent implements OnInit {
     if(id!=0)
     this.selectedMenu = id;
     this.menuVisible = false;
+
+    if(id==7)
+    this.logout();
     
+  }
+
+  logout()
+  {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
+  toHome()
+  {
+    this.router.navigate(['/customer/home']);
   }
 
 }

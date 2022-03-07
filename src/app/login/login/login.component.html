@@ -121,7 +121,7 @@
       <div nz-row class="container">
         <div nz-col nzSpan="24" style='text-align: right'>
           
-          <button nz-button nzType="primary" (click)="sendLoginOTP()" [disabled]="sendingOTP"  [nzLoading]="sendingOTP"  ><b>Send OTP</b></button>
+          <button nz-button nzType="primary" (click)="sendLoginOTP()" [disabled]="sendingOTP"  [nzLoading]="sendingOTP"  ><b>{{sendingOTP?'Sending OTP':'Send OTP'}}</b></button>
         </div>
       </div>
     </ng-container>
@@ -142,8 +142,8 @@
         <div nz-row> &nbsp; </div>
         <div nz-row class="container">
           <div nz-col nzSpan="24" style='text-align: right'>
-            <button nz-button nzType="primary" (click)="resendOTP()" [disabled]="sendingOTP" ><b>Re-Send OTP</b></button> &nbsp; &nbsp;
-            <button nz-button nzType="primary" (click)="verifyLoginOTP()" [nzLoading]="sendingOTP" [disabled]="sendingOTP"><b>Verify OTP</b></button>
+            <!-- <button nz-button nzType="primary" (click)="resendOTP()" [disabled]="sendingOTP" ><b>Re-Send OTP</b></button> &nbsp; &nbsp; -->
+            <button nz-button nzType="primary" (click)="verifyLoginOTP()" [nzLoading]="sendingOTP" [disabled]="sendingOTP"><b>{{sendingOTP?'Verifing OTP':'Verify OTP'}}</b></button>
           </div>
         </div>
 

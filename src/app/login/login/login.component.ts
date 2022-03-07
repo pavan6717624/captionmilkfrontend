@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         this.sendingOTP = false;
         console.log(res);
-        if (res) {
+        if (res.status) {
           //this.msg.success(res.message);
 
           let tokenStr= 'Bearer '+res.jwt;

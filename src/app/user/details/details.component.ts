@@ -5,6 +5,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Category } from '../products/products.component';
 import { UserService } from '../user.service';
+import { LoginStatus } from '../home/home.component';
+import { LoginService } from 'src/app/login/login.service';
 
 export class Product
 {
@@ -14,27 +16,36 @@ export class Product
 	qid:number = 0;
 	rid:number = 0;
 
+  reportDate: string = '';
 	
-	brand: string='';
+	brand: number = 0;
 	
-	category: string = '';
+	category: number = 0;
 	
-	quantity : string = '';
+	quantity : number = 0;
 	
-	repeatDays: string = '';
+	repeatDays: number = 0;
 
 	amount:number = 0;
 		
-	daySchedule:number = 0;
+  morning : Boolean = true;
+  
+  afternoon : Boolean = true;
+
+  evening : Boolean = true;
 	
 	fromDate : string = '';
 	
-	toDate: string = '';
+  toDate: string = '';
+  
+  todayAmount: number = 0;
+  netAmount : number = 0;
+  monthAmount : number = 0;
 	
 	serviceAvailed : Boolean = false;
 	
-	outOfHome : Boolean  = false;
-
+  outOfHome : Boolean  = false;
+  
 }
 
 @Component({
@@ -44,7 +55,7 @@ export class Product
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private userService: UserService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { }
+  constructor(private userService: UserService, private loginService: LoginService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { }
 
   dates : Date [] = [];
 
@@ -52,26 +63,30 @@ export class DetailsComponent implements OnInit {
   brandAll: Category[]=[];
   quantityAll: Category[]=[];
   repeat: Category[]=[];
+  type: string ='ADD'
 
   color = ['white','white','white','white','white','white','white'];
 
   count: number = 0;
+  id:number = -1;
 
   today: Date = new Date();
 
   product: Product[]=[];
 
-	brand: string='';
+	brand: number=0;
 	
-	category: string = '';
+	category: number = 0;
 	
-	quantity : string = '';
+	quantity : number =0;
 	
-	repeatDays: string = '';
+	repeatDays: number =0;
 
-	amount:number = 0;
+  amount:number = 0;
+  
+  sumAmount : number = 0;
 		
-	daySchedule:number = 0;
+
 	
 	fromDate : string = '';
 	
@@ -90,11 +105,10 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-   this. getDates();
-  this.getCategories();
-  this.getBrands();
-  this.getQuantities();
-  this.getRepeatDays();
+    this.getLoginDetails();
+
+  
+
 
 
    
@@ -116,6 +130,29 @@ export class DetailsComponent implements OnInit {
     this.loading=true;
     this.userService.getCategories().subscribe(
       (res : any) => { console.log(res);   this.categoryAll = res; this.loading=false;},
+      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
+     
+       );
+  }
+
+sum()
+{
+  this.sumAmount = 0;
+  for(var i=0;i<this.product.length;i++)
+  this.sumAmount+=this.product[i].amount;
+}
+
+  getProducts()
+  {
+
+    
+    var formData=new FormData();
+    var datePipe = new DatePipe('en-US');
+  
+    formData.set("selectedDate",datePipe.transform(this.selectedDate, 'yyyy-MM-dd')+"");
+    this.loading=true;
+    this.userService.getProducts(formData).subscribe(
+      (res : any) => { console.log(res);   this.product = res; this.sum(); this.loading=false;},
       (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
      
        );
@@ -181,8 +218,45 @@ export class DetailsComponent implements OnInit {
  this.color[id]='orange';
  else
  this.color[id]='lightblue';
+
+ this.getProducts();
    
  }
+
+ loginStatus: LoginStatus = new LoginStatus();
+ userType: string = '';
+ 
+ getLoginDetails() {
+   this.loading = true;
+   this.loginService.getLoginDetails().subscribe(
+     (res: any) => {
+       this.loading = false;
+       this.loginStatus = res;
+       this.userType = this.loginStatus.userType;
+       if(this.userType === 'Customer')
+       {
+        this.getDates();
+        this.getCategories();
+        this.getBrands();
+        this.getQuantities();
+        this.getRepeatDays();
+        this.getProducts();
+       }
+       else
+       {
+         this.msg.error('Invalid Session Found.');
+         this.router.navigate(['']);
+         return;
+       }
+      
+     },
+     (err) => {
+       this.loading = false; this.msg.create('error', 'Session Expired. Please Login...');
+       this.router.navigate(['login']);
+     }
+   );
+ }
+
  
 minus()
 {
@@ -201,7 +275,9 @@ addProduct()
 {
   this.loading=true;
   let product : Product=new Product();
-  product.id=-1;
+ 
+  product.id=this.id;
+
   product.brand = this.brand;
   product.category=this.category;
   	
@@ -211,12 +287,17 @@ addProduct()
 
 	product.amount=this.amount;
 		
-	product.daySchedule=this.daySchedule;
+  product.morning=this.morning;
+  
+  product.evening=this.evening;
+  
+  product.afternoon=this.afternoon;
+  
 	
 
   var datePipe = new DatePipe('en-US');
-  product.fromDate = datePipe.transform(this.fromDate, 'yyyy-MM-dd')+"";
-  product.toDate = datePipe.transform(this.toDate, 'yyyy-MM-dd')+"";
+  product.fromDate = datePipe.transform(this.selectedDate, 'yyyy-MM-dd')+"";
+
 
   console.log(product.toDate+" "+product.fromDate);
 	
@@ -227,7 +308,7 @@ addProduct()
   
 
    this.userService.addProduct(product).subscribe(
-     (res : any) => { console.log(res);  this.closeVisible(); this.ngOnInit(); this.loading=false;},
+     (res : any) => { console.log(res);  this.closeVisible(); this.getProducts(); this.loading=false;},
      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
     
       );
@@ -237,17 +318,24 @@ visible=false;
 closeVisible()
 {
   this.visible=false;
-  this.brand='';
+  this.type='ADD';
+  this.brand=-1;
+
+  this.id=-1;
 	
-	this.category = '';
+	this.category =-1;
 	
-	this.quantity = '';
+	this.quantity = -1;
 	
-	this.repeatDays= '';
+	this.repeatDays= -1;
 
 	this.amount= 0;
 		
-	this.daySchedule = 0;
+  this.morning = true;
+  
+  this.afternoon = true;
+
+  this.evening = true;
 	
 	this.fromDate = '';
 	
@@ -256,6 +344,59 @@ closeVisible()
 	this.serviceAvailed  = false;
 	
 	this.outOfHome  = false;
+
+}
+
+edit(product:Product)
+{
+ 
+console.log(product);
+
+this.type='EDIT';
+
+this.id=product.id;
+
+  this.brand=product.bid;
+	
+	this.category = product.cid;
+	
+	this.quantity =product.qid;
+	
+	this.repeatDays= product.rid;
+
+	this.amount= product.amount;
+		
+  this.morning = product.morning;
+  
+  this.afternoon = product.afternoon;
+
+  this.evening = product.evening ;
+	this.fromDate = product.fromDate ;
+	
+	this.toDate= product.toDate;
+	this.serviceAvailed  = product.serviceAvailed ;
+	
+  this.outOfHome  = product.outOfHome;
+  
+  this.visible=true;
+}
+
+statusChanging=false;
+
+statusChange(product:Product, id: number)
+{
+  this.statusChanging=true;
+
+  var formData=new FormData();
+  formData.set("pid",product.id+"");
+  formData.set("id",id+"");
+
+  this.userService.statusChange(formData).subscribe(
+    (res : any) => { console.log(res); this.statusChanging=false; this.getProducts();},
+    (err) => { console.log(err);this.statusChanging=false; this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
+   
+     );
+
 
 }
 }

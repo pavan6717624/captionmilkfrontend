@@ -20,8 +20,8 @@ const routes: Routes = [
   { path:'usercaption',component: UserComponent , data : {user : 'Caption'}, },
   { path:'usercustomer',component: UserComponent , data : {user : 'Customer'}, },
   { path:'usercustomer',component: UserComponent , data : {user : 'Customer'}, },
-  { path:'details',component: DetailsComponent},
-   { path:'products',component: ProductsComponent},
+  { path:'products',component: DetailsComponent},
+   { path:'categories',component: ProductsComponent},
   ]
 },
 ];

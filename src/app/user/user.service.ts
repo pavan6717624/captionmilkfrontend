@@ -7,6 +7,15 @@ import { Product } from './details/details.component';
   providedIn: 'root'
 })
 export class UserService {
+  getProductReport(formData: FormData) {
+    return this.http.post('http://localhost:8084/getProductReport',formData);
+  }
+  statusChange(formData: FormData) {
+    return this.http.post('http://localhost:8084/statusChange',formData)
+  }
+  getProducts(formData: FormData) {
+    return this.http.post('http://localhost:8084/getProducts',formData);
+  }
   addProduct(product: Product) {
     return this.http.post('http://localhost:8084/addProduct',product)
   }

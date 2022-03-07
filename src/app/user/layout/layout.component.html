@@ -4,14 +4,14 @@
             <div nz-row>
                 <div nz-col nzSpan="8" style='text-align: left'>
                     <i class="fas fa-bars" (click)="open()"></i>&nbsp;
-                    <img src='assets/img/Captain_Milk.jpg' style='max-height: 50px; min-height:20px;'>
+                    <img src='assets/img/Captain_Milk.jpg' (click)='toHome()' style='max-height: 50px; min-height:20px;'>
                 </div>
                 <div nz-col nzSpan="12" style='text-align: center;padding-top:15px'>
                     <h4 id="header">Caption Milk</h4>
                 </div>
                 <div nz-col nzSpan="4" style='text-align: right;'>
 
-                    <nz-avatar nzSize="large" nzIcon="user"></nz-avatar>
+                    <nz-avatar nzSize="large" nz-popover  nzPopoverPlacement="bottom" nzPopoverTitle="Profile" [nzPopoverContent]="Content" nzIcon="user"></nz-avatar>
 
                 </div>
             </div>
@@ -24,11 +24,13 @@
             <router-outlet></router-outlet>
         </div>
     </nz-content>
-    <nz-footer style="background-color: white;text-align:center">Caption Milk</nz-footer>
+    <!-- <nz-footer style="background-color: white;text-align:center">Caption Milk</nz-footer> -->
 
 </nz-layout>
 
-
+<ng-template #Content>  <button nz-button nzType="default" nzShape="round" (click)="logout()">
+    <i nz-icon nzType="logout"></i> LOGOUT
+  </button></ng-template>
 
 <nz-drawer [nzClosable]="false" [nzVisible]="menuVisible" [nzPlacement]="'left'" nzTitle="Menu" (nzOnClose)="close(0)">
     <ng-container *nzDrawerContent>
@@ -43,15 +45,26 @@
                 <i class="fas fa-hat-cowboy"></i> &nbsp;&nbsp; <span> <a style='text-decoration: none;'
                     [routerLink]="['usercaption']" (click)="close(2)">Caption</a></span></li>
             <li nz-menu-item [nzSelected]="selectedMenu==3?true:false">
-                <i nz-icon nzType="home"> </i> <span> <a style='text-decoration: none;'
+                <i class="fas fa-user"></i> &nbsp;&nbsp;<span> <a style='text-decoration: none;'
                     [routerLink]="['usercustomer']" (click)="close(3)">Customer</a></span></li>
-            <li nz-menu-item [nzSelected]="selectedMenu==4?true:false">
-                <i nz-icon nzType="home"> </i> <span> <a style='text-decoration: none;'
-                    [routerLink]="['reports']" (click)="close(4)">Reports</a></span></li>
 
                     <li nz-menu-item [nzSelected]="selectedMenu==5?true:false">
-                        <i nz-icon nzType="home"> </i><span>  <a style='text-decoration: none;'
-                        [routerLink]="['reports']" (click)="close(5)">Logout</a></span></li>
+                        <i nz-icon nzType="select"> </i> <span> <a style='text-decoration: none;'
+                            [routerLink]="['products']" (click)="close(5)">Products</a></span></li>
+
+                            
+                            <li nz-menu-item [nzSelected]="selectedMenu==6?true:false">
+                                <i nz-icon nzType="ordered-list"> </i> <span> <a style='text-decoration: none;'
+                                    [routerLink]="['categories']" (click)="close(6)">Categories</a></span></li>
+                
+
+
+            <li nz-menu-item [nzSelected]="selectedMenu==4?true:false">
+                <i nz-icon nzType="table"> </i> <span> <a style='text-decoration: none;'
+                    [routerLink]="['reports']" (click)="close(4)">Reports</a></span></li>
+
+                    <li nz-menu-item [nzSelected]="selectedMenu==7?true:false">
+                        <i nz-icon nzType="logout"> </i><span>  <a style='text-decoration: none;' (click)="close(7)">Logout</a></span></li>
            
 
         </ul>

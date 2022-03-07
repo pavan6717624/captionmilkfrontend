@@ -58,6 +58,10 @@ export class HomeComponent implements OnInit {
     else if(id==1)
     this.router.navigate(['customer/usercustomer']);	
     else if(id==2)
+    this.router.navigate(['customer/products']);	
+    else if(id==3)
+    this.router.navigate(['customer/categories']);	
+    else if(id==4)
     this.router.navigate(['customer/reports']);	
   }
 
