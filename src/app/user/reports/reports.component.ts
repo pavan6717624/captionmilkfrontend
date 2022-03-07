@@ -42,6 +42,11 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductReport();
+    var header = window.document.getElementById("header");
+
+    if (header) {
+      header.innerHTML = 'Reports';
+    }
   }
 loading=true;
 product: Product[]=[];

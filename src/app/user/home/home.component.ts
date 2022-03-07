@@ -23,6 +23,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoginDetails();
+    var header = window.document.getElementById("header");
+
+    if (header) {
+      header.innerHTML = 'Caption Milk';
+    }
   }
 
   loading=false;
@@ -45,7 +50,7 @@ export class HomeComponent implements OnInit {
               
       },
       (err) => {
-        this.loading = false; this.msg.create('error', 'Session Expired. Please Login...');
+        
         this.router.navigate(['login']);
       }
     );

@@ -7,6 +7,7 @@ import { Category } from '../products/products.component';
 import { UserService } from '../user.service';
 import { LoginStatus } from '../home/home.component';
 import { LoginService } from 'src/app/login/login.service';
+import { Users } from '../user/user.component';
 
 export class Product
 {
@@ -45,6 +46,15 @@ export class Product
 	serviceAvailed : Boolean = false;
 	
   outOfHome : Boolean  = false;
+
+  contact: number = 0;
+
+  type: string = '';
+
+  created: Boolean = false;
+
+  name: string = '';
+
   
 }
 
@@ -55,7 +65,25 @@ export class Product
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private userService: UserService, private loginService: LoginService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { }
+user: Users=new Users();
+
+  constructor(private userService: UserService, private loginService: LoginService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { 
+
+    const navigation = this.router.getCurrentNavigation();
+    this.user = (navigation?.extras?.state?.userDetails);
+
+    if(!this.user)
+    {
+      this.router.navigate(["customer"]);
+    }
+    
+    else
+    this.startLoading()
+    
+
+  }
+
+  
 
   dates : Date [] = [];
 
@@ -105,7 +133,13 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getLoginDetails();
+    var header = window.document.getElementById("header");
+
+    if (header) {
+      header.innerHTML = 'Product Details';
+    }
+
+    //this.getLoginDetails();
 
   
 
@@ -150,6 +184,8 @@ sum()
     var datePipe = new DatePipe('en-US');
   
     formData.set("selectedDate",datePipe.transform(this.selectedDate, 'yyyy-MM-dd')+"");
+    formData.set("contact",this.user.contact+"");
+    formData.set("type",this.user.type);
     this.loading=true;
     this.userService.getProducts(formData).subscribe(
       (res : any) => { console.log(res);   this.product = res; this.sum(); this.loading=false;},
@@ -235,12 +271,7 @@ sum()
        this.userType = this.loginStatus.userType;
        if(this.userType === 'Customer')
        {
-        this.getDates();
-        this.getCategories();
-        this.getBrands();
-        this.getQuantities();
-        this.getRepeatDays();
-        this.getProducts();
+       this.startLoading();
        }
        else
        {
@@ -251,10 +282,21 @@ sum()
       
      },
      (err) => {
-       this.loading = false; this.msg.create('error', 'Session Expired. Please Login...');
+       console.log(err);
+       //this.loading = false; this.msg.create('error', 'Session Expired. Please Login...');
        this.router.navigate(['login']);
      }
    );
+ }
+
+ startLoading()
+ {
+  this.getDates();
+  this.getCategories();
+  this.getBrands();
+  this.getQuantities();
+  this.getRepeatDays();
+  this.getProducts();
  }
 
  
@@ -292,6 +334,12 @@ addProduct()
   product.evening=this.evening;
   
   product.afternoon=this.afternoon;
+
+  product.contact=this.user.contact;
+
+  product.type=this.user.type;
+
+  product.created=this.user.created;
   
 	
 

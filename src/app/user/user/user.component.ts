@@ -11,6 +11,7 @@ export class Users
 	 address: string ='';
 	 regularAmount:number =0;
 	 type: string ='';
+   created: Boolean = false;
 }
 
 @Component({
@@ -24,7 +25,7 @@ export class UserComponent implements OnInit {
   name: string = '';
   mobile: string = '';
   address : string = '';
-  amount: string = '';
+  amount: string = '0';
   showAddUserVisible=false;
 
   usersList: Users[]=[];
@@ -50,6 +51,15 @@ export class UserComponent implements OnInit {
   }
 
   loading = false;
+
+  toProducts(contact:number, created: Boolean)
+  {
+    let user: Users=new Users();
+    user.contact = contact;
+    user.type=this.userType;
+    user.created=created;
+    this.router.navigate(["/customer/products"], { state: {userDetails:  user}});
+  }
 
   getUserDetails()
   {
@@ -85,7 +95,7 @@ export class UserComponent implements OnInit {
       return;
     }
     
-    else if (this.mobile.trim().length == 0) {
+    else if (this.mobile.trim().length == 0 || !this.checkMobile()) {
       this.msg.error("Please provide Valid Mobile Number");
       return;
     }
@@ -93,16 +103,7 @@ export class UserComponent implements OnInit {
       this.msg.error("Please provide Valid Address");
       return;
     }
-    else if (this.amount.trim().length == 0) {
-      this.msg.error("Please provide Valid Amount");
-      return;
-    }
-    if (!this.checkMobile()) {
-      this.msg.error("Please provide Valid Mobile Number");
-      return;
-    }
-
-        if (!this.checkAmount()) {
+    else if (this.amount.trim().length == 0 || !this.checkAmount()) {
       this.msg.error("Please provide Valid Amount");
       return;
     }

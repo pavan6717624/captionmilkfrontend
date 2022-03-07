@@ -33,6 +33,12 @@ export class ProductsComponent implements OnInit {
     this.getCategories();
     this.getBrands();
     this.getQuantities();
+
+    var header = window.document.getElementById("header");
+
+    if (header) {
+      header.innerHTML = 'Category Dashboard';
+    }
   }
 
 loading=false;
@@ -53,60 +59,62 @@ this.addRepeat();
 
   addCategory()
   {
-    this.loading=true;
+    const id = this.msg.loading('Creating Brand...', { nzDuration: 0 }).messageId;
    let category : Category=new Category();
    category.id=-1;
    category.name=this.name;
    category.description=this.name;
 
     this.userService.addCategory(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible(); this.ngOnInit(); this.loading=false;},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
+      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
      
        );
   }
 
   addRepeat()
   {
-    this.loading=true;
-   let category : Category=new Category();
+    const id = this.msg.loading('Creating Brand...', { nzDuration: 0 }).messageId;
+     let category : Category=new Category();
    category.id=-1;
    category.name=this.name;
    category.description=this.name;
 
     this.userService.addRepeat(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible(); this.ngOnInit(); this.loading=false;},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
+      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
+     
      
        );
   }
 
   addBrand()
   {
-    this.loading=true;
+    const id = this.msg.loading('Creating Brand...', { nzDuration: 0 }).messageId;
    let category : Category=new Category();
    category.id=-1;
    category.name=this.name;
    category.description=this.name;
 
     this.userService.addBrand(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.loading=false;},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
+      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
      
        );
   }
 
   addQuantity()
   {
-    this.loading=true;
+    const id = this.msg.loading('Creating Quantity...', { nzDuration: 0 }).messageId;
    let category : Category=new Category();
    category.id=-1;
    category.name=this.name;
    category.description=this.name;
 
     this.userService.addQuantity(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.loading=false;},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.loading=false;}
+      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
+     
      
        );
   }

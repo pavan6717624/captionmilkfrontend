@@ -36,7 +36,7 @@
 <div nz-row>
     <div nz-col nzSpan="8" style='text-align: left'>
 
-        <button nz-button nzType="primary" (click)="visible=true"><b>+ Add Proudct </b></button>&nbsp;&nbsp;
+        <button nz-button nzType="primary" *ngIf="!user.created" (click)="visible=true"><b>+ Add Proudct </b></button>&nbsp;&nbsp;
         <ng-container *ngIf="!loading">
             <!-- <button nz-button nzType="primary" (click)='download()' [nzLoading]='downloading'>
                                 Download
@@ -84,6 +84,8 @@
             <tr>
 
                 <th> # </th>
+                
+
 
                 <th> Category </th>
                 <th> Brand </th>
@@ -106,7 +108,10 @@
         <tbody>
             <tr *ngFor="let data of basicTable.data; index as i">
 
-                <td><i nz-icon style='color: blue' nzType="form" nzTheme="outline" (click)="edit(data)">{{ (i+1) }} &nbsp; </i> </td>
+                <td *ngIf="!user.created"><i nz-icon style='color: blue' nzType="form" nzTheme="outline" (click)="edit(data)">{{ (i+1) }} &nbsp; </i> </td>
+                <td *ngIf="user.created">{{ (i+1) }}</td>
+                
+
                 <td>{{ data.category }}</td>
                 <td>{{ data.brand }}</td>
                 <td>{{ data.quantity }}</td>

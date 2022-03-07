@@ -10,8 +10,9 @@
                     <h4 id="header">Caption Milk</h4>
                 </div>
                 <div nz-col nzSpan="4" style='text-align: right;'>
-
-                    <nz-avatar nzSize="large" nz-popover  nzPopoverPlacement="bottom" nzPopoverTitle="Profile" [nzPopoverContent]="Content" nzIcon="user"></nz-avatar>
+                  
+                    <nz-avatar nzSize="large" nz-popover  nzPopoverPlacement="bottom" nzPopoverTitle="Hi {{loginStatus.contact}}!" [nzPopoverContent]="Content" nzIcon="user"></nz-avatar>
+                    
 
                 </div>
             </div>
@@ -48,9 +49,9 @@
                 <i class="fas fa-user"></i> &nbsp;&nbsp;<span> <a style='text-decoration: none;'
                     [routerLink]="['usercustomer']" (click)="close(3)">Customer</a></span></li>
 
-                    <li nz-menu-item [nzSelected]="selectedMenu==5?true:false">
+                    <!-- <li nz-menu-item [nzSelected]="selectedMenu==5?true:false">
                         <i nz-icon nzType="select"> </i> <span> <a style='text-decoration: none;'
-                            [routerLink]="['products']" (click)="close(5)">Products</a></span></li>
+                            [routerLink]="['products']" (click)="close(5)">Products</a></span></li> -->
 
                             
                             <li nz-menu-item [nzSelected]="selectedMenu==6?true:false">

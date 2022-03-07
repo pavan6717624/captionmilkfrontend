@@ -33,6 +33,10 @@ From Date - &nbsp;
 
                 <th> # </th>
                 <th>Report Date</th>
+                <th> Name </th>
+                <th> Contact </th>
+                 <th> Type </th>
+
                 <th> Category </th>
                 <th> Brand </th>
                 <th>Quantity</th>
@@ -56,6 +60,9 @@ From Date - &nbsp;
 
                 <td>{{ (i+1) }} </td>
                 <td> {{data.reportDate  | date:'dd/MM/yyyy' }} </td>
+                <td>{{ data.name }}</td>
+                 <td>{{ data.contact }}</td>
+                 <td>{{ data.type }}</td>
                 <td>{{ data.category }}</td>
                 <td>{{ data.brand }}</td>
                 <td>{{ data.quantity }}</td>
