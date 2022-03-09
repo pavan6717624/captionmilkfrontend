@@ -22,12 +22,14 @@ export class LoginComponent implements OnInit {
   signUpOpen() {
     this.signUpVisible = true;
     this.loginVisible = false;
+    this.successVisible=false;
 
   }
 
   loginOpen() {
     this.signUpVisible = false;
     this.loginVisible = true;
+    this.successVisible=false;
   }
 
   signUpClose() {

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { LoginService } from 'src/app/login/login.service';
 import { LoginStatus } from '../home/home.component';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -14,7 +14,13 @@ export class LayoutComponent implements OnInit {
   selectedMenu : number = 1;
   menuVisible=false;
 
-  constructor(private route:ActivatedRoute, private router: Router, private msg: NzMessageService, private loginService: LoginService) {
+
+  back()
+  {
+    this.location.back();
+  }
+
+  constructor( private location: Location, private route:ActivatedRoute, private router: Router, private msg: NzMessageService, private loginService: LoginService) {
 
  
 

@@ -4,7 +4,12 @@
             <div nz-row>
                 <div nz-col nzSpan="8" style='text-align: left'>
                     <i class="fas fa-bars" (click)="open()"></i>&nbsp;
-                    <img src='assets/img/Captain_Milk.jpg' (click)='toHome()' style='max-height: 50px; min-height:20px;'>
+                    <img src='assets/img/Captain_Milk.jpg' (click)='toHome()' style='max-height: 50px; min-height:20px;'>&nbsp;
+                    <!-- <span (click)="back()"><i nz-icon nzType="arrow-left" nzTheme="outline"></i> &nbsp; <b>Back</b></span> -->
+                    <button nz-button (click)="back()" nzShape="round">
+                        <b><i nz-icon nzType="arrow-left"></i></b>
+                        
+                      </button>
                 </div>
                 <div nz-col nzSpan="12" style='text-align: center;padding-top:15px'>
                     <h4 id="header">Caption Milk</h4>
