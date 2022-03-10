@@ -24,6 +24,7 @@
     "express": "^4.17.3",
     "jquery": "^3.6.0",
     "ng-zorro-antd": "^12.1.1",
+    "ngx-device-detector": "^3.0.0",
     "path": "^0.12.7",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",

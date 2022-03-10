@@ -1,5 +1,5 @@
-<div nz-row>
-    <div nz-col nzSpan="24" style='text-align: right'>
+<div nz-row style='padding-top:10px'>
+    <div nz-col nzSpan="24" style='text-align: left'>
 
         <button nz-button nzType="primary" (click)='showAddUserVisible=true'>+ Add</button> &nbsp;&nbsp;
         <ng-container *ngIf="!loading && usersList && usersList.length > 0">
@@ -19,7 +19,7 @@
 
 
 <div style='overflow:auto;width:100%;height:100%'>
-    <nz-table #basicTable nzShowPagination=true nzSize='middle' nzBordered [nzData]="usersList" [nzLoading]="loading">
+    <nz-table  #basicTable nzShowPagination=true nzSize='middle' nzBordered=false [nzData]="usersList" [nzLoading]="loading">
         <thead>
             <tr>
 
@@ -30,7 +30,9 @@
                 <th> Address </th>
                 <!-- <th> Regular Amount </th> -->
                 <th> Type </th>
-
+                <th> &nbsp; </th>
+                
+              
 
 
             </tr>
@@ -40,12 +42,19 @@
             <tr *ngFor="let data of basicTable.data; index as i" (click)="toProducts(data.contact,data.created)">
 
                 <td>{{ (i+1) }}</td>
-                <td>{{ data.name }}</td>
+                <td><u style='cursor:pointer'>{{ data.name }}</u></td>
                 <td>{{ data.contact }}</td>
                 <td>{{ data.address }}</td>
                 <!-- <td>{{ data.regularAmount }}</td> -->
-                <td>{{ data.type }}</td>
-
+                <td>
+                    
+                    {{ data.type }}
+                          
+                </td>
+                <td>
+                <i style='cursor:pointer' nz-icon nzType="right" nzTheme="outline"></i> 
+                        </td>              
+               
 
 
 

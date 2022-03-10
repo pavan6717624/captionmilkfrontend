@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from '../user.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 export class Users
 {
@@ -29,9 +30,10 @@ export class UserComponent implements OnInit {
   showAddUserVisible=false;
 
   usersList: Users[]=[];
+  isMobile=false;
 
-  constructor(private userService: UserService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { 
-
+  constructor(private deviceService: DeviceDetectorService,private userService: UserService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { 
+    this.isMobile = this.deviceService.isMobile();
 
     this.route.data.subscribe(v => this.userType = v.user);
 

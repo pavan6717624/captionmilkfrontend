@@ -447,4 +447,8 @@ statusChange(product:Product, id: number)
 
 
 }
+toProducts()
+{
+  this.router.navigate(["/customer/categories"]);
+}
 }
