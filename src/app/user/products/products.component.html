@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-4" style='text-align: center'>
+    <div class="col-lg-4" style='text-align: center' style='padding:20px'>
         <div class='container' nz-row style='text-align:left;'>
             <nz-card style="width:300px;" nzTitle="Category" [nzExtra]="extraTemplate">
                 <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChangeCategory(item)"
@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4" style='text-align: center'>
+    <div class="col-lg-4" style='text-align: center'  style='padding:20px'>
         <div class='container' nz-row style='text-align:left;'>
             <nz-card style="width:300px;" nzTitle="Brand" [nzExtra]="extraTemplate1">
                 <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChangeBrand(item)"
@@ -28,7 +28,7 @@
 
     </div>
 
-    <div class="col-lg-4" style='text-align: center'>
+    <div class="col-lg-4" style='text-align: center'  style='padding:20px'>
         <div class='container' nz-row style='text-align:left;'>
             <nz-card style="width:300px;" nzTitle="Quantity" [nzExtra]="extraTemplate2">
                 <p nz-typography nzEditable [(nzContent)]="item.name" (nzContentChange)="onChangeQuantity(item)"
