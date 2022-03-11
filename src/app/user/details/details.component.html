@@ -79,7 +79,7 @@
 
     <div nz-row style='padding: 10px;' style='text-align: center'>
         <div nz-col nzSpan="24" style='text-align: center'>
-            <nz-switch [nzLoading]='statusChanging' [nzCheckedChildren]="checkedTemplate"
+            <nz-switch [nzLoading]='statusChanging' (ngModelChange)="statusChange()" [nzCheckedChildren]="checkedTemplate"
                 [nzUnCheckedChildren]="unCheckedTemplate">
             </nz-switch> <b> &nbsp;Out of Home</b>
             <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>

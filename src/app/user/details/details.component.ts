@@ -433,13 +433,16 @@ this.id=product.id;
 
 statusChanging=false;
 
-statusChange(product:Product, id: number)
+statusChange()
 {
   this.statusChanging=true;
 
   var formData=new FormData();
-  formData.set("pid",product.id+"");
-  formData.set("id",id+"");
+  var datePipe = new DatePipe('en-US');
+  
+  formData.set("selectedDate",datePipe.transform(this.selectedDate, 'yyyy-MM-dd')+"");
+  formData.set("contact",this.user.contact+"");
+  formData.set("type",this.user.type);
 
   this.userService.statusChange(formData).subscribe(
     (res : any) => { console.log(res); this.statusChanging=false; this.getProducts();},
