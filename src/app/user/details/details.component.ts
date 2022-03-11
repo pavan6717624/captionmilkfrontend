@@ -8,6 +8,7 @@ import { UserService } from '../user.service';
 import { LoginStatus } from '../home/home.component';
 import { LoginService } from 'src/app/login/login.service';
 import { Users } from '../user/user.component';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 export class Product
 {
@@ -66,9 +67,10 @@ export class Product
 export class DetailsComponent implements OnInit {
 
 user: Users=new Users();
+isMobile=false;
 
-  constructor(private userService: UserService, private loginService: LoginService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { 
-
+  constructor(private deviceService: DeviceDetectorService,private userService: UserService, private loginService: LoginService,private route: ActivatedRoute,private router: Router,private msg: NzMessageService,private notification: NzNotificationService) { 
+    this.isMobile = this.deviceService.isMobile();
     const navigation = this.router.getCurrentNavigation();
     this.user = (navigation?.extras?.state?.userDetails);
 

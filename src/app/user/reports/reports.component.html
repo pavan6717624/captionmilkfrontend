@@ -26,8 +26,8 @@ From Date - &nbsp;
 
  <div nz-row> &nbsp; </div>
 
-<div style='overflow:auto;width:100%;height:100%'>
-    <nz-table #basicTable  nzShowPagination=true nzSize='middle' nzBordered [nzData]="product" [nzLoading]="loading">
+<div style='overflow:auto;width:100%;height:100%;padding-bottom:10px'>
+    <nz-table #basicTable  nzShowPagination=false nzSize='middle' nzBordered [nzData]="['']" [nzLoading]="loading">
         <thead>
             <tr>
 
@@ -56,7 +56,7 @@ From Date - &nbsp;
         </thead>
 
         <tbody>
-            <tr *ngFor="let data of basicTable.data ; index as i">
+            <tr *ngFor="let data of product ; index as i">
 
                 <td>{{ (i+1) }} </td>
                 <td> {{data.reportDate  | date:'dd/MM/yyyy' }} </td>
@@ -90,6 +90,12 @@ From Date - &nbsp;
             
 
 
+
+            </tr>
+
+
+            <tr *ngIf='product.length == 0' style='text-align:center' >
+                <td colspan='12'><nz-empty nzNotFoundImage="simple"></nz-empty></td>
 
             </tr>
 

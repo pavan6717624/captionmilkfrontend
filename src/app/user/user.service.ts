@@ -8,50 +8,50 @@ import { Product } from './details/details.component';
 })
 export class UserService {
   getProductReport(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/getProductReport',formData);
+    return this.http.post('http://localhost:8084/getProductReport',formData);
   }
   statusChange(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/statusChange',formData)
+    return this.http.post('http://localhost:8084/statusChange',formData)
   }
   getProducts(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/getProducts',formData);
+    return this.http.post('http://localhost:8084/getProducts',formData);
   }
   addProduct(product: Product) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/addProduct',product)
+    return this.http.post('http://localhost:8084/addProduct',product)
   }
   getRepeats() {
-    return this.http.get('https://captionmilkbackend.herokuapp.com/getRepeats');
+    return this.http.get('http://localhost:8084/getRepeats');
   }
   addRepeat(category: Category) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/addRepeat',category)
+    return this.http.post('http://localhost:8084/addRepeat',category)
   }
   addCategory(category: Category) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/addCategory',category)
+    return this.http.post('http://localhost:8084/addCategory',category)
   }
   getCategories() {
-    return this.http.get('https://captionmilkbackend.herokuapp.com/getCategories');
+    return this.http.get('http://localhost:8084/getCategories');
   }
 
   addBrand(category: Category) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/addBrand',category)
+    return this.http.post('http://localhost:8084/addBrand',category)
   }
   getBrands() {
-    return this.http.get('https://captionmilkbackend.herokuapp.com/getBrands');
+    return this.http.get('http://localhost:8084/getBrands');
   }
 
   addQuantity(category: Category) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/addQuantity',category)
+    return this.http.post('http://localhost:8084/addQuantity',category)
   }
   getQuantities() {
-    return this.http.get('https://captionmilkbackend.herokuapp.com/getQuantities');
+    return this.http.get('http://localhost:8084/getQuantities');
   }
 
 
   addUser(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/addUser',formData)
+    return this.http.post('http://localhost:8084/addUser',formData)
   }
   getUsersList(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/getUsersList',formData)
+    return this.http.post('http://localhost:8084/getUsersList',formData)
   }
 
   constructor(private http: HttpClient) { }

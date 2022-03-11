@@ -32,25 +32,25 @@
 </div>
 <div nz-col nzSpan="24">&nbsp;</div> -->
 <div nz-row style='padding-bottom: 10px;'>
-<div nz-col nzSpan="24" style='text-align: center'>
+    <div nz-col nzSpan="24" style='text-align: center'>
 
-    <nz-alert nzMessage="Your selected date: {{ selectedDate | date: 'yyyy-MM-dd' }}"></nz-alert>
-
- 
+        <nz-alert nzMessage="Your selected date: {{ selectedDate | date: 'yyyy-MM-dd' }}"></nz-alert>
 
 
-</div>
+
+
+    </div>
 </div>
 
 <div nz-row style='padding-bottom: 10px;'>
     <div nz-col nzSpan="24">
 
-<button nz-button nz-button nzType="dashed"  nzSize = small nzDanger nzShape="round">
-    <b style='font-size: smaller;'> Today's Amount : {{product.length>0?product[0].todayAmount:0}} | 
-        Month Amount : {{product.length>0?product[0].monthAmount:0}} |
-        Net Amount : {{product.length>0?product[0].netAmount:0}} </b>
-</button>
-</div>
+        <!-- <button nz-button nz-button nzType="dashed"  nzSize = small nzDanger nzShape="round"> -->
+        <div> <b style='font-size: smaller;'> Today's Amount : {{product.length>0?product[0].todayAmount:0}} |
+                Month Amount : {{product.length>0?product[0].monthAmount:0}} |
+                Net Amount : {{product.length>0?product[0].netAmount:0}} </b> </div>
+        <!-- </button> -->
+    </div>
 </div>
 
 <div nz-row style='padding-bottom: 10px;'>
@@ -64,64 +64,87 @@
         </ng-container>
     </div>
 
-     
+
     <div nz-col nzSpan="12" style='text-align: right'>
 
-        <!-- <button nz-button  nzType="primary" nzGhost>
-            <b><i nz-icon nzType="message" nzTheme="outline">Messages &nbsp;</i>  </b>
+        <button nz-button nzType="primary" nzGhost>
+            <b><i nz-icon nzType="message" nzTheme="outline">Messages &nbsp;</i> </b>
         </button>
-      -->
 
 
+
+    </div>
 </div>
-</div>
 
 
-<div style='overflow:auto;width:100%;height:100%'>
-    <nz-table #basicTable nzShowPagination=true nzSize='middle' nzBordered [nzData]="product" [nzLoading]="loading">
+    <div nz-row style='padding: 10px;' style='text-align: center'>
+        <div nz-col nzSpan="24" style='text-align: center'>
+            <nz-switch [nzLoading]='statusChanging' [nzCheckedChildren]="checkedTemplate"
+                [nzUnCheckedChildren]="unCheckedTemplate">
+            </nz-switch> <b> &nbsp;Out of Home</b>
+            <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+<div style='overflow:auto;width:100%;height:100%;padding-top:10px'>
+    <nz-table #basicTable nzShowPagination=false nzSize='middle' nzBordered [nzData]="['']" [nzLoading]="loading">
         <thead>
             <tr>
 
                 <th> # </th>
-                
+
 
 
                 <th> Category </th>
                 <th> Brand </th>
                 <th>Quantity</th>
                 <th>Repeat</th>
-               
+
                 <th>Day Schedule</th>
                 <th>Amount</th>
                 <th>Begin Date</th>
                 <th>For Date</th>
                 <!-- <th>Service Availed</th>
                 <th>Out of Home</th> -->
-                
-              
-               
+
+
+
 
             </tr>
         </thead>
 
         <tbody>
-            <tr *ngFor="let data of basicTable.data; index as i">
+            <tr *ngFor="let data of product; index as i">
 
-                <td *ngIf="!user.created"><i nz-icon style='color: blue' nzType="form" nzTheme="outline" (click)="edit(data)">{{ (i+1) }} &nbsp; </i> </td>
+                <td *ngIf="!user.created"><i nz-icon style='color: blue' nzType="form" nzTheme="outline"
+                        (click)="edit(data)">{{ (i+1) }} &nbsp; </i> </td>
                 <td *ngIf="user.created">{{ (i+1) }}</td>
-                
+
 
                 <td>{{ data.category }}</td>
                 <td>{{ data.brand }}</td>
                 <td>{{ data.quantity }}</td>
                 <td>{{ data.repeatDays }}</td>
-               
-                
-                <td>  <i nz-icon [style.color]="data.morning?'green':'red'" [nzType]="data.morning?'check-circle':'close-circle'" nzTheme="outline">M&nbsp;</i>&nbsp;&nbsp;
-                    <i nz-icon [style.color]="data.afternoon?'green':'red'" [nzType]="data.afternoon?'check-circle':'close-circle'" nzTheme="outline">A&nbsp;</i>&nbsp;&nbsp;
-                    <i nz-icon [style.color]="data.evening?'green':'red'" [nzType]="data.evening?'check-circle':'close-circle'" nzTheme="outline">E&nbsp;</i>&nbsp;&nbsp; </td>
-                    <td>{{ data.amount }}</td>
-                    <td>{{ data.fromDate | date:'dd/MM/yyyy' }}</td>
+
+
+                <td> <i nz-icon [style.color]="data.morning?'green':'red'"
+                        [nzType]="data.morning?'check-circle':'close-circle'" nzTheme="outline">M&nbsp;</i>&nbsp;&nbsp;
+                    <i nz-icon [style.color]="data.afternoon?'green':'red'"
+                        [nzType]="data.afternoon?'check-circle':'close-circle'"
+                        nzTheme="outline">A&nbsp;</i>&nbsp;&nbsp;
+                    <i nz-icon [style.color]="data.evening?'green':'red'"
+                        [nzType]="data.evening?'check-circle':'close-circle'" nzTheme="outline">E&nbsp;</i>&nbsp;&nbsp;
+                </td>
+                <td>{{ data.amount }}</td>
+                <td>{{ data.fromDate | date:'dd/MM/yyyy' }}</td>
                 <td>{{ selectedDate | date:'dd/MM/yyyy' }}</td>
                 <!-- <td> <nz-switch [ngModel]="data.serviceAvailed" [nzLoading]='statusChanging'
                     [nzCheckedChildren]="checkedTemplate" (ngModelChange)="statusChange(data,0)" 
@@ -135,9 +158,16 @@
                 </nz-switch>
                </td> -->
 
-            
 
 
+
+
+            </tr>
+
+            <tr *ngIf='!loading&&product.length == 0' style='text-align:center'>
+                <td colspan='9'>
+                    <nz-empty nzNotFoundImage="simple"></nz-empty>
+                </td>
 
             </tr>
 
@@ -168,7 +198,7 @@
             </div>
 
             <div nz-col nzSpan="4" style='text-align: left'>
-            &nbsp;<button nz-button (click)='toProducts()'>+</button>
+                &nbsp;<button nz-button (click)='toProducts()'>+</button>
             </div>
         </div>
 
@@ -185,7 +215,7 @@
             </div>
             <div nz-col nzSpan="4" style='text-align: left'>
                 &nbsp;<button nz-button (click)='toProducts()'>+</button>
-                </div>
+            </div>
         </div>
 
         <div nz-row> &nbsp; </div>
@@ -201,7 +231,7 @@
             </div>
             <div nz-col nzSpan="4" style='text-align: left'>
                 &nbsp;<button nz-button (click)='toProducts()'>+</button>
-                </div>
+            </div>
         </div>
 
         <div nz-row> &nbsp; </div>

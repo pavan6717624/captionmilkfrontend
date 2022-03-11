@@ -57,32 +57,37 @@ else if(this.type === 'Repeat Days')
 this.addRepeat();
   }
 
+
+  adding=false;
+
   addCategory()
   {
-    const id = this.msg.loading('Creating Brand...', { nzDuration: 0 }).messageId;
+this.adding=true;
+    const id = this.msg.loading('Creating Category...', { nzDuration: 0 }).messageId;
    let category : Category=new Category();
    category.id=-1;
    category.name=this.name;
    category.description=this.name;
 
     this.userService.addCategory(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
+      (res : any) => { console.log(res); this.adding=false; this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.adding=false; this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
      
        );
   }
 
   addRepeat()
   {
-    const id = this.msg.loading('Creating Brand...', { nzDuration: 0 }).messageId;
+    this.adding=true;
+    const id = this.msg.loading('Creating Repeat..', { nzDuration: 0 }).messageId;
      let category : Category=new Category();
    category.id=-1;
    category.name=this.name;
    category.description=this.name;
 
     this.userService.addRepeat(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
+      (res : any) => { console.log(res);  this.adding=false; this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.adding=false; this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
      
      
        );
@@ -90,6 +95,7 @@ this.addRepeat();
 
   addBrand()
   {
+    this.adding=true;
     const id = this.msg.loading('Creating Brand...', { nzDuration: 0 }).messageId;
    let category : Category=new Category();
    category.id=-1;
@@ -97,14 +103,15 @@ this.addRepeat();
    category.description=this.name;
 
     this.userService.addBrand(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
+      (res : any) => { console.log(res); this.adding=false; this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.adding=false; this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
      
        );
   }
 
   addQuantity()
   {
+    this.adding=true;
     const id = this.msg.loading('Creating Quantity...', { nzDuration: 0 }).messageId;
    let category : Category=new Category();
    category.id=-1;
@@ -112,8 +119,8 @@ this.addRepeat();
    category.description=this.name;
 
     this.userService.addQuantity(category).subscribe(
-      (res : any) => { console.log(res);  this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
-      (err) => { console.log(err); this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
+      (res : any) => { console.log(res);  this.adding=false; this.closeVisible();  this.ngOnInit(); this.msg.remove(id);},
+      (err) => { console.log(err); this.adding=false; this.msg.error('Error Occured at Server. Please try again.'); this.msg.remove(id);}
      
      
        );

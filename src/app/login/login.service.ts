@@ -7,16 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   getLoginDetails() {
-    return this.http.get('https://captionmilkbackend.herokuapp.com/getLoginDetails')
+    return this.http.get('http://localhost:8084/getLoginDetails')
   }
   verifyLoginOTP(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/verifyLoginOTP',formData);
+    return this.http.post('http://localhost:8084/verifyLoginOTP',formData);
   }
   sendLoginOTP(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/sendLoginOTP',formData);
+    return this.http.post('http://localhost:8084/sendLoginOTP',formData);
   }
   verifyOTP(formData: FormData) {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/verifyOTP',formData);
+    return this.http.post('http://localhost:8084/verifyOTP',formData);
   }
 
   constructor(private http: HttpClient) { }
@@ -24,7 +24,7 @@ export class LoginService {
 
   sendOTP(formData: FormData): Observable<any>
   {
-    return this.http.post('https://captionmilkbackend.herokuapp.com/sendOTP',formData);
+    return this.http.post('http://localhost:8084/sendOTP',formData);
   }
 
 }

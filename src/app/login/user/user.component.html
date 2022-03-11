@@ -1,1 +1,10 @@
 
+<ng-container *ngIf="loading">
+    <div nz-row>
+        <div nz-col nzSpan="24" style='text-align: left'>&nbsp;</div>
+    <div nz-col nzSpan="24" style='text-align: left'>&nbsp;</div>
+        <div nz-col nzSpan="24" style='text-align: center'>
+            <nz-spin nzTip="Providing User Access..." nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+    </div>
+</ng-container>
